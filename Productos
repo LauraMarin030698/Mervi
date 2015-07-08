@@ -1,0 +1,591 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mervi;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.table.DefaultTableModel;//libreia de tablas
+import javax.swing.ImageIcon.*;
+import java.io.IOException;
+
+/**
+ *
+ * @author LAURA1
+ */
+
+
+ public class Productos extends JFrame implements ActionListener,KeyListener{
+/**PONEMOS CON LO QUE VAMOS A TRABAJAR
+ * 
+ * 
+ */
+
+
+    
+	JLabel lblIdvino;
+        JLabel lblNombre;
+        JLabel lblStockMax;
+        JLabel lblStockMin;
+        JLabel lblValorVenta;
+        JLabel lblCostoCompra;
+        JLabel lblAñejo;
+        JLabel lblTipo;
+        JLabel lblCasaVino;
+        JLabel lblColor;
+        JLabel lblEstado;
+        
+        JTextField txtIdvino;
+        JTextField txtNombre;
+       JTextField txtStockMax;
+        JTextField txtStockMin;
+        JTextField txtValorVenta;
+        JTextField txtCostoCompra;
+         TextField txtEstado;
+          TextField txtColor;
+            
+         
+        
+        JRadioButton JrEstado;
+        
+        JComboBox coAñejo;
+        JComboBox coTipovino;
+        JComboBox coCasa;
+        
+        
+	ButtonGroup Genero;
+	JButton btnCrear;
+        JButton btnBuscar;
+        JButton btnActualizar;
+        JButton btnEliminar;
+
+	JTable TablaProductos; //crear tabla
+	DefaultTableModel dtm; //Modelo tabla
+	JScrollPane tablapanel; //panel para la tabla
+	Object [][] datos = new Object [1][20];//estructura interna de la tabal
+	Object [] Columnas = {"*Id Vino","Nombre_Vino","*Stock_Max","*Stock_Min",
+							 "*Valor_Venta", "*Costo_Compra","*Añejo", "*Tipo_Vino", "*Casa_Vino", "*Color","*Estado",
+							   }; //Numero de columnas
+
+	String Mat[][];
+	int i=0;
+	int numReg=0;
+	
+
+
+	
+
+	 public Productos()
+	 {
+	    setTitle("Mervi - Productos");
+	    setSize(1230,600);
+	    setResizable(false);
+	    setBackground(Color.white);
+	    setVisible(true);
+	    setLocationRelativeTo(null);//PA Q SE PONGA EN LA MITAD
+	    setLayout(null);
+	    
+	    try {
+           //Image imgInicio = .read(getClass().getClassLoader().getResource("Images/prove.png"));
+           //Productos = new ImageIcon(imgInicio);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+     setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("Images/Merca.png")));
+
+		Mat= new String	[100] [20];
+
+		//CREAMOS,DAMOS TAMAÑO Y UBICAMOS LO QUE DEFINIMOS
+	    // CREAMOS LOS LABEL
+
+
+
+	    lblIdvino = new JLabel("*Id Vino");
+	    lblIdvino.setBounds(20,20,70,25);
+	    getContentPane().add(lblIdvino);
+
+	    lblStockMax = new JLabel("*Stock Max");
+	    lblStockMax.setBounds(20,50,70,25);
+	    getContentPane().add(lblStockMax);
+
+	    lblValorVenta = new JLabel("*Valor Venta");
+	    lblValorVenta.setBounds(20,80,160,25);
+	    getContentPane().add(lblValorVenta);
+
+	    lblAñejo = new JLabel("*Añejo");
+	    lblAñejo.setBounds(20,110,160,25);
+            getContentPane().add(lblAñejo);
+
+	    lblCasaVino = new JLabel("*Casa Vino");
+	    lblCasaVino.setBounds(20,140,120,25);
+	    getContentPane().add(lblCasaVino);
+
+
+	    lblEstado = new JLabel("*Estado");
+	    lblEstado.setBounds(20,170,80,25);
+	    getContentPane().add(lblEstado);
+
+	    
+
+	    lblNombre = new JLabel("*Nombre Vino");
+	    lblNombre.setBounds(420,20,70,25);
+	    getContentPane().add(lblNombre);
+
+	    lblStockMin = new JLabel("*Stock Min");
+	    lblStockMin.setBounds(420,50,70,25);
+	    getContentPane().add(lblStockMin);
+
+	    lblCostoCompra = new JLabel("*Costo Compra");
+	    lblCostoCompra.setBounds(420,80,70,25);
+	    getContentPane().add(lblCostoCompra);
+
+
+
+	    lblTipo = new JLabel("*Tipo Vino");
+	    lblTipo.setBounds(420,140,70,25);
+	    getContentPane().add(lblTipo);
+
+
+	    lblColor = new JLabel("*Color");
+	    lblColor.setBounds(420,170,120,25);
+	    getContentPane().add(lblColor);
+
+	    
+
+	   
+
+	 // CREAMOS LOS CUADROS DE TEXTO
+
+	    txtValorVenta = new JTextField();
+	    txtValorVenta.setBounds(170,80,200,25);
+	    getContentPane().add(txtValorVenta);
+
+	    txtIdvino = new JTextField();
+	    txtNombre.setBounds(170,20,200,25);
+	    getContentPane().add(txtIdvino);
+
+	    txtStockMax = new JTextField();
+	    txtStockMax.setBounds(170,50,200,25);
+	    getContentPane().add(txtStockMax);
+
+
+	    coCasa = new JComboBox();
+	    coCasa.setBounds(170,140,200,25);
+	    getContentPane().add(coCasa);
+            
+            JrEstado = new JRadioButton("Activo");
+	    JrEstado.setBounds(170,80,70,25);
+	    getContentPane().add(JrEstado);
+
+	    JrEstado = new JRadioButton("Inactivo");
+	    JrEstado.setBounds(240,80,70,25);
+	    getContentPane().add(JrEstado);
+
+	   
+
+	    txtNombre = new JTextField();
+	    txtNombre.setBounds(500,20,200,25);
+	    getContentPane().add(txtNombre);
+
+	    txtStockMin = new JTextField();
+	    txtStockMin.setBounds(500,50,200,25);
+	    getContentPane().add(txtStockMin);
+
+
+
+	    txtCostoCompra = new JTextField();
+	    txtCostoCompra.setBounds(500,200,200,25);
+	    getContentPane().add(txtCostoCompra);
+
+
+
+
+
+	    
+
+
+	    
+
+
+
+
+
+
+	    //SE CREAN LAS LISTAS DESPEGABLES
+
+	    coAñejo = new JComboBox();
+	    coAñejo.setBounds(20,110,160,25);
+	    coAñejo.addItem("Seleccione");
+            coAñejo.addItem("Vino del Año, jven o cesechero");
+            coAñejo.addItem("Vino de guarda o de crianza");
+            coAñejo.addItem("Vino reserva");
+            coAñejo.addItem("Vino gran reserva");
+            getContentPane().add(coAñejo);
+            
+            coTipovino = new JComboBox();
+	    coTipovino.setBounds(170,110,120,25);
+	    coTipovino.addItem("Seleccione");
+            coTipovino.addItem("dulce");
+            coTipovino.addItem("espumoso");
+            coTipovino.addItem("agrio");
+            coTipovino.addItem("Amargos");
+            coTipovino.addItem("Oscuros");
+            coTipovino.addItem("Efervecentes");
+            getContentPane().add(coTipovino);
+            
+            coCasa = new JComboBox();
+	    coCasa.setBounds(20,110,160,25);
+	    coCasa.addItem("Seleccione");
+            coCasa.addItem("España");
+            coCasa.addItem("Portugal");
+            coCasa.addItem("Chile");
+            coCasa.addItem("EE UU");
+            getContentPane().add(coCasa);
+
+
+
+	    
+
+	    //CoDia= new JComboBox();
+	    //CoDia.setBounds(585,230,40,25);
+	    //getContentPane().add(CoDia);
+
+	    
+
+
+	    //CREAMOS LOS BOTONES
+		btnCrear = new JButton("Crear");
+		btnCrear.setText("Crear");
+		btnCrear.setBounds(100,500,120,30);//x,y,ancho,largo
+		getContentPane().add(btnCrear);
+		btnCrear.addActionListener(this);
+
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setText("Buscar");
+		btnBuscar.setBounds(400,500,150,30);//x,y,ancho,largo
+		getContentPane().add(btnBuscar);
+		btnBuscar.addActionListener(this);
+
+		btnActualizar = new JButton("Actualizar");
+		btnActualizar.setText("Actualizar");
+		btnActualizar.setBounds(700,500,190,30);//x,y,ancho,largo
+		getContentPane().add(btnActualizar);
+		btnActualizar.addActionListener(this);
+		btnActualizar.setEnabled(false);
+
+
+		
+
+
+
+		dtm = new DefaultTableModel(datos,Columnas);// forma de la tabla
+		TablaProductos = new JTable(dtm); // indican el modelo de la tabla
+		tablapanel = new JScrollPane(TablaProductos);
+
+		TablaProductos. setModel(dtm);
+		tablapanel.setBounds(10,310,1200,300);
+		tablapanel.setVisible(true);
+		tablapanel.setEnabled(false);
+		getContentPane().add(tablapanel);
+
+		txtNombre.addKeyListener(this);
+		txtIdvino.addKeyListener(this);
+		txtStockMax.addKeyListener(this);
+		txtStockMin.addKeyListener(this);
+		txtValorVenta.addKeyListener(this);
+                txtCostoCompra.addKeyListener(this);
+		txtColor.addKeyListener(this);
+
+((JPanel) getContentPane()).setOpaque(false);
+        	
+        	JLabel fondo = new JLabel();
+        	
+        	getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+        	setVisible(true);
+        	
+ 
+		this.repaint();
+		
+	
+
+		 }
+
+    public void actionPerformed(ActionEvent event)
+   	{
+		if(event.getSource()==btnCrear){  //Crear
+			
+
+			if(JrEstado.isSelected()){
+			      JrEstado="Activo";
+			}if(JrEstado.isSelected()){
+		              JrEstado="Inactivo";
+			}
+
+			if(txtIdvino.getText().equals("")||txtNombre.getText().equals("")
+				||txtStockMax.getText().equals("")||txtStockMin.getText().equals("")||JrEstado.equals(""))
+			{
+					JOptionPane.showMessageDialog(this,"No pueden haber campos vacios");
+			}else{
+				if(Verificar()){
+					JOptionPane.showMessageDialog(null,"Ya existe el usuario");
+				}else{
+
+
+
+			Mat[i][0]=txtIdvino.getText();
+			Mat[i][1]=txtNombre.getText();
+			Mat[i][2]=txtStockMax.getText();		//ASI SE LLENAN LOS CUADROS DE TEXTO
+			Mat[i][3]=txtStockMin.getText();
+			Mat[i][4]=txtValorVenta.getText();
+			Mat[i][5]=txtCostoCompra.getText();
+			Mat[i][6]=(String)coAñejo.getSelectedItem().toString();
+			Mat[i][7]=(String)coTipovino.getSelectedItem().toString();
+			Mat[i][8]=(String)coCasa.getSelectedItem().toString();
+			Mat[i][9]=txtColor.getText();
+			//ASI SE LLENAN  UN COMBOBOX
+
+			
+
+
+			numReg++;
+			i++;
+
+
+			Limpiar();
+			JOptionPane.showMessageDialog(this,"Datos Guardados con exito");
+
+			LlenarTabla(Mat,i);
+			btnCrear.setEnabled(true);
+			}	}
+		}
+
+		if(event.getSource()==btnBuscar){
+			Buscar();
+
+		}
+			if(event.getSource()==btnEliminar){
+				eliminar();
+				Limpiar();
+				btnCrear.setEnabled(true);
+				btnEliminar.setEnabled(false);
+				btnActualizar.setEnabled(false);
+			}
+
+		    if(event.getSource()==btnActualizar) //comienza actualizar
+	{
+	if(Verificar())
+	{
+			int i=VerificarFila();
+
+
+            TablaProductos.setValueAt(txtIdvino.getText(),i,0);
+             TablaProductos.setValueAt(txtNombre.getText(),i,1);
+             TablaProductos.setValueAt(txtStockMax.getText(),i,2);
+             TablaProductos.setValueAt(txtStockMin.getText(),i,3);
+              TablaProductos.setValueAt(txtValorVenta.getText(),i,4);
+             TablaProductos.setValueAt(txtCostoCompra.getText(),i,5);
+             TablaProductos.setValueAt(coAñejo.getSelectedItem(),i,6);
+             TablaProductos.setValueAt(coTipovino.getSelectedItem(),i,7);
+             TablaProductos.setValueAt(coCasa.getSelectedItem(),i,8);
+             TablaProductos.setValueAt(txtColor.getText(),i,9);
+             
+
+
+
+	JOptionPane.showMessageDialog(null,"Los datos se han modificado sactisfactoriamente");
+	}
+else
+	{
+	JOptionPane.showMessageDialog(null,"No se pudo modificar la clave");
+    }
+
+
+  }
+
+   	}
+
+   	
+
+   	public void LlenarTabla(String mat[][],int i){
+   		int k;
+   		int j;
+   		Object [][] datos = new Object [i][20];//estructura interna de la tabal
+   		for(j=0;j<i;j++){
+
+   		for (k = 0; k<19; k++) {
+   			datos[j][k]= mat[j][k];
+   			dtm = new DefaultTableModel(datos,Columnas);
+   			TablaProductos.setModel(dtm);
+   		}
+   		}
+
+   	}
+
+   	public void keyTyped(KeyEvent e) {
+        //System.out.println("tiped");
+        char caracter = e.getKeyChar(); // para leer el caracter correspondiente a la tecla
+        int numero = (int) (caracter);
+     if (e.getSource() == txtNombre) {
+			if (Character.isDigit(caracter) == true)
+                        {
+                 	e.consume();
+
+                 }
+    }
+    if (e.getSource() == txtColor) {
+			if (Character.isDigit(caracter) == true)
+                        {
+                 	e.consume();
+
+                 }
+    }
+    
+
+    if (e.getSource() == txtStockMax) {
+			if (((caracter < '0') || (caracter > '9')) )
+                        {
+					e.consume();
+
+                 }
+    }
+
+    if (e.getSource() == txtStockMin) {
+			if (((caracter < '0') || (caracter > '9')) )
+                        {
+					e.consume();
+
+                 }
+    }
+
+    if (e.getSource() == txtIdvino) {
+			if (((caracter < '0') || (caracter > '9')) )
+                        {
+					e.consume();
+
+                 }
+    }
+    
+    if (e.getSource() == txtValorVenta) {
+			if (((caracter < '0') || (caracter > '9')) )
+                        {
+					e.consume();
+
+                 }
+    }
+
+    if (e.getSource() == txtCostoCompra) {
+			if (((caracter < '0') || (caracter > '9')) )
+                        {
+					e.consume();
+
+                 }
+    }
+
+
+   	}
+
+    public void keyPressed(KeyEvent e) {
+    }
+
+    public void keyReleased(KeyEvent e) {
+    }
+
+   	public static void main (String[] args) {
+   		Productos pd = new Productos();
+	}
+
+	public void Buscar(){ // Aqui empieza el buscar
+		String Doc,Sexo;
+		int z=0;
+		Doc= JOptionPane.showInputDialog("Ingrese el documento a buscar");
+		while(z<TablaProductos.getRowCount() && !TablaProductos.getValueAt(z,2).toString().equals(Doc)){
+			z++;
+		}
+		if(z<i){
+			txtIdvino.setText(TablaProductos.getValueAt(z,0).toString());
+			txtNombre.setText(TablaProductos.getValueAt(z,1).toString());
+			txtStockMax.setText(TablaProductos.getValueAt(z,2).toString());
+                        txtStockMin.setText(TablaProductos.getValueAt(z,3).toString());
+                        txtValorVenta.setText(TablaProductos.getValueAt(z,4).toString());
+                        txtCostoCompra.setText(TablaProductos.getValueAt(z,5).toString());
+			coAñejo.setSelectedItem(TablaProductos.getValueAt(z,6).toString());
+                        coTipovino.setSelectedItem(TablaProductos.getValueAt(z,7).toString());
+                        coCasa.setSelectedItem(TablaProductos.getValueAt(z,8).toString());
+			txtColor.setText(TablaProductos.getValueAt(z,9).toString());
+			
+			
+
+			btnCrear.setEnabled(false);
+			btnActualizar.setEnabled(true);
+			btnEliminar.setEnabled(true);
+
+		}else{
+			JOptionPane.showMessageDialog(null,"No se encontro");
+			btnCrear.setEnabled(true);
+		}
+	}
+
+	public boolean Verificar(){
+		String Ver;
+		int z=0;
+		boolean res;
+		Ver=txtIdvino.getText();
+		while(z<i  && !Ver.equals(Mat[z][0])){
+			z++;
+		}
+		if(z<i){
+			res=true;
+		}else{
+			res=false;
+		}
+		return res;
+
+	}
+
+	public int VerificarFila(){
+		String Ver;
+		int z=0;
+		boolean res;
+		Ver=txtIdvino.getText();
+		while(z<i  && !Ver.equals(Mat[z][0])){
+			z++;
+		}
+		return z;
+
+	}
+
+	public void eliminar(){ // Este es el deshabilitar
+		for(int w=0;w<TablaProductos.getRowCount();w++)
+  				{
+  					if(TablaProductos.getValueAt(w,2).toString().equals(txtIdvino.getText()))
+  					{
+  						dtm.removeRow(w);
+  					}
+  				}
+
+
+	}
+
+	public void Limpiar(){
+		txtIdvino.setText("");
+			txtNombre.setText("");
+			txtStockMax.setText("");
+			txtStockMin.setText("");
+			txtValorVenta.setText("");
+			txtCostoCompra.setText("");
+			coAñejo.setSelectedIndex(0);
+			coTipovino.setSelectedIndex(0);
+                        coCasa.setSelectedIndex(0);
+	                txtColor.setText("");
+			
+	}
+
+
+
+}
+
